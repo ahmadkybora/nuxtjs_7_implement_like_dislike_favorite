@@ -86,6 +86,7 @@
         },
         mounted() {
             this.loading = false;
+            this.$store.dispatch('Products/ProductLike');
             return this.$store.dispatch('Products/isProducts');
         },
         computed: {
@@ -110,11 +111,20 @@
                         break;
 
                     case "/dislike":
-                        alert(4);
+                        const ProductDisLike = {
+                            userId: 1,
+                            productId: 3,
+                        };
+                        this.$store.dispatch('Products/ProductDisLike', ProductDisLike);
                         break;
 
                     case "/like":
-                        alert(5);
+                        const ProductLike = {
+                            userId: 1,
+                            productId: 2,
+                        };
+                        alert(ProductLike);
+                        this.$store.dispatch('Products/ProductLikes', ProductLike);
                         break;
                 }
             },

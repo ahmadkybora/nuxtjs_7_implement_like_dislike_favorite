@@ -29,9 +29,9 @@ const actions = {
         await Axios.get(Axios.defaults.baseURL + 'products')
             .then(res => {
                 const isProducts = res.data.data;
-                const popularProducts = res.data.data.popular_products;
+                //const popularProducts = res.data.data.popular_products;
                 context.commit('isProducts', isProducts);
-                context.commit('popularProducts', popularProducts)
+                //context.commit('popularProducts', popularProducts)
             })
             .catch(err => {
                 Swal.fire('Warning!', err, 'warning',
@@ -224,6 +224,128 @@ const actions = {
             .catch(error => {
                 console.log(error.response.data)
             })*/
+    },
+
+    async ProductLike(context, payload) {
+        const ProductLike = {
+            userId: payload.userId,
+            productId: payload.productId,
+        };
+        await Axios.post(Axios.defaults.baseURL + 'product-likes', ProductLike)
+            .then(res => {
+                switch (res.status) {
+                    case 200:
+                        Swal.fire('Success!', res.data.message, 'success')
+                            .then(() => {
+                                const getProducts = res.data.data;
+                                context.commit('getProducts', getProducts);
+                                this.$router.push('/panel/products');
+                            });
+                        break;
+                    case 403:
+                        Swal.fire('Warning!', res.data.message, 'warning')
+                            .then(() => {
+
+                            });
+                        break;
+                    case 422:
+                        alert("ok");
+                        Swal.fire('Error!', 'whooops', 'error')
+                            .then(() => {
+
+                            });
+                        break;
+                    case 503:
+                        Swal.fire('Danger!', 'Service is Unavailable', 'error');
+                        break;
+                    default:
+                        Swal.fire('Warning!', 'Your Basic Information', 'warning');
+                        break;
+                }
+            }).catch(err => {
+                switch (err.response.status) {
+                    case 422:
+                        for (let i = 0; i < err.response.data.errors.length; i++) {
+                            Swal.fire('Warning!', err.response.data.errors[i].message, 'warning')
+                                .then(() => {
+
+                                });
+                        }
+                        break;
+                    case 503:
+                        for (let i = 0; i < err.response.data.errors.length; i++) {
+                            Swal.fire('Warning!', err.response.data.errors[i].message, 'warning')
+                                .then(() => {
+
+                                });
+                        }
+                        break;
+                    default:
+                        Swal.fire('Warning!', 'Your Basic Information', 'warning');
+                        break;
+                }
+            })
+    },
+
+    async ProductDisLike(context, payload) {
+        const ProductLike = {
+            userId: payload.userId,
+            productId: payload.productId,
+        };
+        await Axios.post(Axios.defaults.baseURL + 'product-dislikes', ProductLike)
+            .then(res => {
+                switch (res.status) {
+                    case 200:
+                        Swal.fire('Success!', res.data.message, 'success')
+                            .then(() => {
+                                const getProducts = res.data.data;
+                                context.commit('getProducts', getProducts);
+                                this.$router.push('/');
+                            });
+                        break;
+                    case 403:
+                        Swal.fire('Warning!', res.data.message, 'warning')
+                            .then(() => {
+
+                            });
+                        break;
+                    case 422:
+                        alert("ok");
+                        Swal.fire('Error!', 'whooops', 'error')
+                            .then(() => {
+
+                            });
+                        break;
+                    case 503:
+                        Swal.fire('Danger!', 'Service is Unavailable', 'error');
+                        break;
+                    default:
+                        Swal.fire('Warning!', 'Your Basic Information', 'warning');
+                        break;
+                }
+            }).catch(err => {
+                switch (err.response.status) {
+                    case 422:
+                        for (let i = 0; i < err.response.data.errors.length; i++) {
+                            Swal.fire('Warning!', err.response.data.errors[i].message, 'warning')
+                                .then(() => {
+
+                                });
+                        }
+                        break;
+                    case 503:
+                        for (let i = 0; i < err.response.data.errors.length; i++) {
+                            Swal.fire('Warning!', err.response.data.errors[i].message, 'warning')
+                                .then(() => {
+
+                                });
+                        }
+                        break;
+                    default:
+                        Swal.fire('Warning!', 'Your Basic Information', 'warning');
+                        break;
+                }
+            })
     }
 };
 
