@@ -223,12 +223,15 @@ const actions = {
                 context.state.isUserLogin.first_name = user.first_name;
                 context.state.isUserLogin.last_name = user.last_name;
 
-                let is_user = isLogin.first_name + ' ' + isLogin.last_name;
+                let full_name = isLogin.first_name + ' ' + isLogin.last_name;
+                let username = isLogin.username;
+
                 window.localStorage.setItem('token-user', tokenUser);
-                window.localStorage.setItem('is-user', is_user);
+                window.localStorage.setItem('full_name', full_name);
+                window.localStorage.setItem('username', username);
 
                 if (window.localStorage.getItem('token-user') != null) {
-                    if (is_user) {
+                    if (username) {
                         this.$router.push('/');
                         window.location.reload();
                     } else {

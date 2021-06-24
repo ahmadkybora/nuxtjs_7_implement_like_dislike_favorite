@@ -27,6 +27,6 @@
     "id": 5,
     "icon": "fa fa-thumbs-up",
     "color": "text-primary",
-    "route": "/likes"
+    "route": "/like"
   }
 ]

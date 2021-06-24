@@ -107,24 +107,27 @@
                         break;
 
                     case "/favorite":
-                        alert(3);
+                        const ProductFavorite = {
+                            username: window.localStorage.getItem('username'),
+                            productId: productId,
+                        };
+                        this.$store.dispatch('Products/ProductFavorite', ProductFavorite);
                         break;
 
                     case "/dislike":
                         const ProductDisLike = {
-                            userId: 1,
-                            productId: 3,
+                            username: window.localStorage.getItem('username'),
+                            productId: productId,
                         };
                         this.$store.dispatch('Products/ProductDisLike', ProductDisLike);
                         break;
 
                     case "/like":
                         const ProductLike = {
-                            userId: 1,
-                            productId: 2,
+                            username: window.localStorage.getItem('username'),
+                            productId: productId,
                         };
-                        alert(ProductLike);
-                        this.$store.dispatch('Products/ProductLikes', ProductLike);
+                        this.$store.dispatch('Products/ProductLike', ProductLike);
                         break;
                 }
             },
